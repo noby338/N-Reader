@@ -1046,6 +1046,9 @@ public class ReaderActivity extends Activity {
         if (text == null || text.length() == 0) {
             return "";
         }
+        if (text instanceof Spanned) {
+            return text;
+        }
         String str = text.toString().replace("\r", "");
         String[] rawLines = str.split("\n");
         List<String> paragraphs = new ArrayList<String>();

@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.pdf.PdfRenderer;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
@@ -512,8 +514,8 @@ public final class BookParser {
             if (index < 0 || index >= chapters.size()) {
                 return "";
             }
-            ZipFile zip = getZipFile();
-            String path = chapters.get(index);
+            final ZipFile zip = getZipFile();
+            final String path = chapters.get(index);
             ZipEntry entry = findEntryIgnoreCase(zip, path);
             if (entry == null) {
                 return "Chapter file not found: " + path;
@@ -523,9 +525,73 @@ public final class BookParser {
             String charset = detectHtmlCharset(data);
             String html = new String(data, charset);
 
+            int slash = path.lastIndexOf('/');
+            final String chapterDir = slash >= 0 ? path.substring(0, slash + 1) : "";
+
             html = sanitizeHtml(html);
+
+            Html.ImageGetter imageGetter = new Html.ImageGetter() {
+                @Override
+                public Drawable getDrawable(String source) {
+                    if (source == null || source.isEmpty()) return null;
+                    try {
+                        String fullPath = normalizeZipPath(chapterDir + decodePath(source));
+                        ZipEntry imgEntry = findEntryIgnoreCase(zip, fullPath);
+                        if (imgEntry == null) return null;
+
+                        InputStream imgIn = zip.getInputStream(imgEntry);
+                        byte[] imgBytes = readStream(imgIn);
+
+                        BitmapFactory.Options opts = new BitmapFactory.Options();
+                        opts.inJustDecodeBounds = true;
+                        BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length, opts);
+
+                        if (opts.outWidth <= 0 || opts.outHeight <= 0) return null;
+
+                        int targetMaxW = 860;
+                        int targetMaxH = 750;
+
+                        int sampleSize = 1;
+                        while ((opts.outWidth / (sampleSize * 2)) >= targetMaxW && (opts.outHeight / (sampleSize * 2)) >= targetMaxH) {
+                            sampleSize *= 2;
+                        }
+                        opts.inJustDecodeBounds = false;
+                        opts.inSampleSize = sampleSize;
+                        opts.inPreferredConfig = Bitmap.Config.RGB_565;
+
+                        Bitmap bmp = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length, opts);
+                        if (bmp == null) return null;
+
+                        int w = bmp.getWidth();
+                        int h = bmp.getHeight();
+                        float scale = 1.0f;
+                        if (w > targetMaxW) {
+                            scale = (float) targetMaxW / (float) w;
+                        }
+                        if (h * scale > targetMaxH) {
+                            scale = (float) targetMaxH / (float) h;
+                        }
+
+                        int finalW = Math.max(1, Math.round(w * scale));
+                        int finalH = Math.max(1, Math.round(h * scale));
+
+                        BitmapDrawable d = new BitmapDrawable(null, bmp);
+                        d.setBounds(0, 0, finalW, finalH);
+                        return d;
+                    } catch (Exception e) {
+                        AppLog.error("Error loading EPUB image: " + source, e);
+                        return null;
+                    }
+                }
+            };
+
             try {
-                Spanned spanned = Html.fromHtml(html);
+                Spanned spanned;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    spanned = Html.fromHtml(html, Html.FROM_HTML_MODE_COMPACT, imageGetter, null);
+                } else {
+                    spanned = Html.fromHtml(html, imageGetter, null);
+                }
                 if (spanned != null && spanned.length() > 0) {
                     return spanned;
                 }
@@ -540,8 +606,9 @@ public final class BookParser {
             html = html.replaceAll("(?is)<script\\b[^>]*>.*?</script>", "");
             html = html.replaceAll("(?is)<svg\\b[^>]*>.*?</svg>", "");
             html = html.replaceAll("(?is)<head\\b[^>]*>.*?</head>", "");
-            html = html.replaceAll("(?is)<img\\b[^>]*>", "");
-            html = html.replaceAll("(?is)<image\\b[^>]*>", "");
+            html = html.replaceAll("(?is)<img\\b[^>]*zy-footnote=\"([^\"]+)\"[^>]*>", "（注：$1）");
+            html = html.replaceAll("(?is)<image\\b[^>]*xlink:href=\"([^\"]+)\"[^>]*>", "<img src=\"$1\"/>");
+            html = html.replaceAll("(?is)<image\\b[^>]*href=\"([^\"]+)\"[^>]*>", "<img src=\"$1\"/>");
             return html;
         }
 
