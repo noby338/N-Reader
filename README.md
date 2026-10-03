@@ -2,6 +2,10 @@
   <b>English</b> | <a href="README_zh.md">简体中文</a>
 </p>
 
+<p align="center">
+  <img src="docs/screenshots/hero_banner.png" alt="N-Reader Banner" width="100%" />
+</p>
+
 # N-Reader 📖
 
 > **A native, distraction-free e-book reader crafted specifically for Android TV & smart displays (16:9 landscape).**

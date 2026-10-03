@@ -2,6 +2,10 @@
   <a href="README.md">English</a> | <b>简体中文</b>
 </p>
 
+<p align="center">
+  <img src="docs/screenshots/hero_banner.png" alt="N-Reader 门面横幅" width="100%" />
+</p>
+
 # N-Reader 📖
 
 > **专为安卓电视与大屏设备量身打造的原生双页沉浸式电子书阅读器（16:9 宽屏体验）。**
@@ -11,7 +15,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/reading_dual_page.png" alt="N-Reader 双页阅读排版" width="90%" />
+  <img src="docs/screenshots/reading_dual_page.png" alt="N-Reader 双页阅读排版与快捷菜单" width="90%" />
 </p>
 
 <p align="center">
