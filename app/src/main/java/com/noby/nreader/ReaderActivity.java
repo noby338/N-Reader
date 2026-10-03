@@ -121,6 +121,7 @@ public class ReaderActivity extends Activity {
     private int lastPaginatedHeight = 0;
     private String pendingAnchor = null;
     private int currentTocIndex = -1;
+    private int initialAnchorChar = -1;
 
     private long lastBackPressTime = 0;
 
@@ -842,9 +843,14 @@ public class ReaderActivity extends Activity {
                 document = doc;
                 totalChapters = doc.getChapterCount();
                 currentChapter = Math.max(0, Math.min(BookStore.getSavedChapter(ReaderActivity.this, bookFile), totalChapters - 1));
-                if (isPdf && isDualPageMode) {
-                    currentSpread = currentChapter / 2;
+                if (isPdf) {
+                    if (isDualPageMode) {
+                        currentSpread = currentChapter / 2;
+                    } else {
+                        currentSpread = 0;
+                    }
                 } else {
+                    initialAnchorChar = BookStore.getSavedOffset(ReaderActivity.this, bookFile);
                     currentSpread = 0;
                 }
                 loadCurrentChapter();
@@ -905,6 +911,22 @@ public class ReaderActivity extends Activity {
                             }
                             currentSpread = targetPage / 2;
                         }
+                    } else if (initialAnchorChar > 0) {
+                        int anchor = initialAnchorChar;
+                        initialAnchorChar = -1;
+                        int targetSpread = 0;
+                        if (masterLayout != null) {
+                            for (int i = 0; i < dualPages.size(); i++) {
+                                int pageStartChar = masterLayout.getLineStart(dualPages.get(i).start);
+                                if (pageStartChar <= anchor) {
+                                    targetSpread = i / 2;
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                        int totalSpreads = Math.max(1, (dualPages.size() + 1) / 2);
+                        currentSpread = Math.min(Math.max(0, targetSpread), totalSpreads - 1);
                     } else if (currentSpread < 0) {
                         currentSpread = Math.max(0, (dualPages.size() + 1) / 2 - 1);
                     }
@@ -927,6 +949,20 @@ public class ReaderActivity extends Activity {
                                 }
                             });
                         }
+                    } else if (initialAnchorChar > 0) {
+                        final int anchor = initialAnchorChar;
+                        initialAnchorChar = -1;
+                        singleTextView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (singleTextView.getLayout() != null) {
+                                    int safe = Math.min(anchor, singleTextView.getText().length());
+                                    int line = singleTextView.getLayout().getLineForOffset(safe);
+                                    int y = singleTextView.getLayout().getLineTop(line);
+                                    scrollView.scrollTo(0, y);
+                                }
+                            }
+                        });
                     } else {
                         restoreScrollOffset();
                     }
@@ -1234,13 +1270,15 @@ public class ReaderActivity extends Activity {
             int totalSpreads = Math.max(1, (dualPages.size() + 1) / 2);
             float spreadFraction = (float) currentSpread / (float) totalSpreads;
             float totalFraction = ((float) currentChapter + spreadFraction) / (float) Math.max(1, totalChapters);
-            BookStore.saveProgress(this, bookFile, currentChapter, currentSpread * 2, totalFraction);
+            int charIndex = getCurrentAnchorCharIndex();
+            BookStore.saveProgress(this, bookFile, currentChapter, charIndex, totalFraction);
         } else {
             int scrollY = scrollView.getScrollY();
             int maxScroll = Math.max(1, contentContainer.getHeight() - scrollView.getHeight());
             float chapterFraction = Math.max(0.0f, Math.min(1.0f, (float) scrollY / (float) maxScroll));
             float totalFraction = ((float) currentChapter + chapterFraction) / (float) Math.max(1, totalChapters);
-            BookStore.saveProgress(this, bookFile, currentChapter, scrollY, totalFraction);
+            int charIndex = getCurrentAnchorCharIndex();
+            BookStore.saveProgress(this, bookFile, currentChapter, charIndex, totalFraction);
         }
         updateProgress();
     }
