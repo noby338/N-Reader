@@ -1,0 +1,197 @@
+<resources>
+    <string name="app_name">N-Reader</string>
+    <string name="main_title">N-Reader</string>
+    <string name="enable_wifi_import">开启 Wi-Fi 传书</string>
+    <string name="online_logs">运行日志</string>
+    <string name="reading_settings">阅读设置</string>
+    <string name="batch_operations">批量管理</string>
+    <string name="donate_support">赞赏支持作者</string>
+    <string name="about_app">关于软件</string>
+    
+    <string name="bookshelf_help">方向键选择书籍，确定键打开阅读</string>
+    <string name="bookshelf_empty">书架空空如也。请使用“批量管理”导入本地书籍或开启“Wi-Fi 传书”从手机/电脑上传。</string>
+    <string name="bookshelf_summary">共 %1$d 本书。按确定键阅读；长按确定键删除。</string>
+    
+    <string name="delete_book">删除书籍</string>
+    <string name="delete_book_message">确定从电视书架删除《%1$s》吗？\n\n书籍文件和阅读进度将被彻底清除。</string>
+    <string name="delete">删除</string>
+    <string name="book_deleted">书籍已删除</string>
+    <string name="delete_failed">删除失败</string>
+    <string name="cancel">取消</string>
+    <string name="close">关闭</string>
+    
+    <string name="batch_delete_books">批量删除书籍</string>
+    <string name="batch_import_books">从本地磁盘/U盘导入</string>
+    <string name="no_books_to_delete">没有可删除的书籍</string>
+    <string name="select_books_to_delete">选择要删除的书籍</string>
+    <string name="confirm_batch_delete">确认批量删除</string>
+    <string name="batch_delete_message">确定删除选中的 %1$d 本书籍？</string>
+    <string name="books_deleted">已删除 %1$d 本书籍</string>
+
+    <string name="wifi_import_disabled">Wi-Fi 传书已停止</string>
+    <string name="wifi_address_unavailable">未检测到 Wi-Fi 网络连接</string>
+    <string name="finding_available_port">正在启动 Wi-Fi 传书服务…</string>
+    <string name="wifi_upload">Wi-Fi 网页传书</string>
+    <string name="server_addresses">传书地址: %1$s</string>
+    <string name="qr_scan_tip">将手机或电脑连接至同一局域网 Wi-Fi，扫描屏幕二维码即可上传电子书</string>
+    <string name="book_auto_imported">《%1$s》已自动导入</string>
+    <string name="book_auto_import_failed">《%1$s》自动导入失败</string>
+    <string name="wifi_server_failed">Wi-Fi 服务异常: %1$s</string>
+
+    <string name="reading_progress_zero">阅读进度 0.0%</string>
+    <string name="reading_progress">阅读进度 %1$s</string>
+    <string name="press_back_again_to_exit">再按一次返回键退出到书架</string>
+    <string name="scrolled_to_book_end">已读到本书最后一页</string>
+    <string name="already_at_book_start">已在本书开头</string>
+    <string name="already_at_book_end">已在本书末尾</string>
+    <string name="loading_book">正在加载《%1$s》…</string>
+    <string name="cannot_open_book">无法打开该书籍\n\n%1$s</string>
+    <string name="unsupported_file_format">不支持的文件格式（支持 TXT、EPUB、MOBI、PDF）</string>
+
+    <string name="local_import_title">本地存储与 U 盘导入</string>
+    <string name="reading_device_storage">正在扫描存储设备…</string>
+    <string name="local_import_help">确定键: 进入目录/导入   菜单键: 多选/取消选择</string>
+    <string name="parent_folder">&lt; 上级目录</string>
+    <string name="importing_books">正在导入 %1$d 本书籍…</string>
+    <string name="books_imported">成功导入 %1$d 本书籍</string>
+    <string name="storage_permission_missing">缺少存储权限，无法读取本地磁盘或 U 盘中的书籍</string>
+
+    <!-- Reading Modes -->
+    <string name="reading_mode">阅读排版模式</string>
+    <string name="directory">目录</string>
+    <string name="device_storage">设备存储</string>
+    <string name="mode_single_scroll">单页连续滚动（铺满全屏）</string>
+    <string name="mode_dual_page">双页并列翻页（16:9 宽屏展开）</string>
+    
+    <!-- Typography & Formatting -->
+    <string name="format_settings_title">%1$s 格式专属设置</string>
+    <string name="format_settings_desc">当前修改将在所有 %1$s 格式书籍中统一生效</string>
+    <string name="font_size">字体大小</string>
+    <string name="line_spacing">行间距</string>
+    <string name="font_family">字体风格</string>
+    <string name="font_default">系统黑体</string>
+    <string name="font_serif">典雅宋体</string>
+    <string name="font_mono">经典等宽</string>
+    <string name="font_sans_medium">清晰适中</string>
+    <string name="page_margin">页面边距</string>
+    <string name="theme_select">阅读主题</string>
+    
+    <!-- 8 Main Themes -->
+    <string name="theme_teal">青绿色</string>
+    <string name="theme_gray">中性灰</string>
+    <string name="theme_white">明亮白</string>
+    <string name="theme_beige">柔和米色</string>
+    <string name="theme_light_gray">浅灰色</string>
+    <string name="theme_dark_gray">深灰色</string>
+    <string name="theme_black">纯黑色</string>
+    <string name="theme_brown">复古棕</string>
+
+    <!-- Donation Screen -->
+    <string name="donate_title">支持 N-Reader 持续迭代 ☕</string>
+    <string name="donate_subtitle">专为安卓大屏电视打造的极简开源阅读器。如果 N-Reader 让您的电视阅读更舒适从容，欢迎请作者喝杯咖啡！</string>
+    <string name="donate_wechat">微信支付</string>
+    <string name="donate_alipay">支付宝</string>
+    <string name="donate_paypal">PayPal</string>
+    <string name="donate_kofi">Ko-fi</string>
+    <string name="donate_wechat_tip">使用微信“扫一扫”赞赏支持作者</string>
+    <string name="donate_alipay_tip">使用支付宝“扫一扫”赞赏支持作者</string>
+    <string name="donate_paypal_tip">使用手机扫码通过 PayPal 国际信用卡/借记卡赞助</string>
+    <string name="donate_kofi_tip">使用手机扫码在 Ko-fi 平台赞助（支持 Apple Pay 与 Google Pay）</string>
+
+    <!-- About Screen -->
+    <string name="about_title">关于 N-Reader</string>
+    <string name="about_version">版本: 1.0.0 (电视专版)</string>
+    <string name="about_github">GitHub 开源仓库</string>
+    <string name="about_github_url">https://github.com/noby338/N-Reader</string>
+    <string name="about_email">问题反馈与联系</string>
+    <string name="about_email_addr">1326981297@qq.com</string>
+    <string name="about_disclaimer">N-Reader 是专为安卓智能电视及电视盒子设计的纯遥控操作开源电子书阅读器。支持 TXT、EPUB、MOBI、PDF 主流格式。软件不收集、不上报任何用户隐私数据。</string>
+
+    <!-- Top Navigation Menus -->
+    <string name="menu_import">导入书籍 ▾</string>
+    <string name="menu_reading_settings">阅读排版 ▾</string>
+    <string name="menu_language">语言设置 ▾</string>
+    <string name="menu_more">更多 ▾</string>
+
+    <!-- Import Sources -->
+    <string name="import_choice_title">导入书籍</string>
+    <string name="import_local">本地存储与 U 盘导入</string>
+    <string name="import_wifi">开启 Wi-Fi 传书服务</string>
+    <string name="import_smb">局域网 SMB / NAS 共享</string>
+
+    <!-- Sections -->
+    <string name="recent_reading">最近阅读</string>
+    <string name="all_books">全部图书</string>
+    <string name="bookshelf_summary_remote">共 %1$d 本书籍 | 按【菜单键】或长按【确定键】管理</string>
+
+    <!-- More Dialog -->
+    <string name="more_donate">赞赏支持作者 ☕</string>
+    <string name="more_about">关于与开源信息</string>
+
+    <!-- Language Dialog -->
+    <string name="select_language_title">选择语言</string>
+    <string name="lang_en">English (英文)</string>
+    <string name="lang_zh">简体中文</string>
+
+    <!-- Layout & Typography Settings -->
+    <string name="layout_settings_title">阅读排版与字号设置</string>
+    <string name="format_select">配置目标</string>
+    <string name="apply_to_all">通用全局默认</string>
+    <string name="use_default">使用默认</string>
+    <string name="paragraph_spacing">段落间距</string>
+    <string name="show_clock">显示时间</string>
+    <string name="hide_clock">隐藏时间</string>
+    <string name="clock_setting">底部时间显示</string>
+    <string name="show_status_bar">显示底部状态栏</string>
+    <string name="hide_status_bar">隐藏底部状态栏</string>
+    <string name="status_bar_setting">底部状态栏开关</string>
+    <string name="toc_title">书籍目录</string>
+    <string name="toc_summary">共 %1$d 章节</string>
+    <string name="chapter_label">第 %1$d 章</string>
+    <string name="page_indicator">第 %1$d / %2$d 页</string>
+    <string name="progress_label">进度: %1$.1f%%</string>
+    <string name="font_size_decrease">缩小字号 A-</string>
+    <string name="font_size_increase">放大字号 A+</string>
+    <string name="spacing_compact">紧凑</string>
+    <string name="spacing_normal">标准</string>
+    <string name="spacing_loose">宽松</string>
+    <string name="spacing_wide">超宽</string>
+
+    <!-- Folder Import & SMB -->
+    <string name="folder_import_all">导入当前文件夹所有书籍</string>
+    <string name="please_enter_folder">请先进入具体文件夹</string>
+    <string name="smb_title">局域网 SMB 共享传书</string>
+    <string name="smb_connect_new">连接新共享</string>
+    <string name="smb_not_connected">未连接 SMB 共享</string>
+    <string name="smb_help">确定键: 进入文件夹或下载导入图书</string>
+    <string name="smb_dialog_title">连接 SMB 共享服务器</string>
+    <string name="smb_hint_host">服务器 IP 地址 (例如 192.168.2.5)</string>
+    <string name="smb_hint_share">共享文件夹名称 (例如 books 或 share)</string>
+    <string name="smb_hint_user">用户名 (匿名访问可留空)</string>
+    <string name="smb_hint_pass">密码 (无密码可留空)</string>
+    <string name="smb_connect_btn">连接</string>
+    <string name="smb_connecting">正在连接 smb://%1$s/%2$s ...</string>
+    <string name="smb_connect_failed">SMB 连接失败: %1$s</string>
+    <string name="smb_downloading">正在从局域网下载 《%1$s》...</string>
+    <string name="smb_import_success">已成功导入: 《%1$s》</string>
+    <string name="smb_import_failed">导入失败，请检查网络连接或共享权限</string>
+    <string name="smb_folder_prefix">[文件夹] </string>
+    <string name="smb_scan_lan">自动扫描局域网</string>
+    <string name="smb_manual_connect">手动输入</string>
+    <string name="smb_scanning_lan">正在扫描局域网中的 SMB 设备 (%1$s*) …</string>
+    <string name="smb_devices_found">发现局域网 SMB 设备</string>
+    <string name="smb_no_devices_found">未在局域网中发现开启 445 端口的设备，请尝试手动输入</string>
+    <string name="smb_discovering_shares">正在探测 %1$s 上的可用共享…</string>
+    <string name="smb_select_share">选择共享文件夹</string>
+    <string name="smb_auth_title">登录 %1$s</string>
+
+    <!-- Shelf Sorting & Filtering -->
+    <string name="sort_order">排序</string>
+    <string name="file_type">格式</string>
+    <string name="sort_recent">最近阅读</string>
+    <string name="sort_title">书名名称</string>
+    <string name="sort_progress">阅读进度</string>
+    <string name="sort_time">添加时间</string>
+    <string name="sort_size">文件大小</string>
+    <string name="filter_all">全部格式</string>
+</resources>
